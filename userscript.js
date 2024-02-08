@@ -14,30 +14,49 @@
     let ordering = getOrdering();
     parseStyle(ordering);
     addUi(ordering);
-
+    let stylesheet = document.createElement("style");
+    stylesheet.innerText = ``;
+    let head = document.getElementsByTagName("head")[0];
+    head.appendChild(stylesheet);
 })();
 
 function addUi() {
     let courses = document.querySelector(".courses");
-    const div = document.getElementById("frontpage-course-list");
+    const div = document.getElementById("carousel-item-main");
     let save = document.createElement("button");
-    save.textContent = "Save config";
+    save.textContent = "BetterMoodle Save Config";
     save.addEventListener("click", saveOrdering);
+    save.setAttribute("class", "dropdown-item");
     let del = document.createElement("button");
-    del.textContent = "Delete config";
+    del.textContent = "BetterMoodle Delete Config";
     del.addEventListener("click", deleteOrdering);
-    div.insertBefore(save, courses);
-    div.insertBefore(del, courses);
+    del.setAttribute("class", "dropdown-item");
+    div.insertBefore(save, div.getElementsByClassName("dropdown-divider")[1]);
+    div.insertBefore(del, div.getElementsByClassName("dropdown-divider")[1]);
 
     courses.getElementsByClassName("coursebox").forEach(element => {
+        let index = parseInt(element.getAttribute("style").split(":")[1].replace(";", ""));
         let input = document.createElement("input");
+        let box = document.createElement("div");
+        box.setAttribute("style", "display:flex;")
         input.setAttribute("type", "number");
-        element.appendChild(input);
-        input.addEventListener("change", () => {
-            moveCourse(parseInt(element.getAttribute("style").split(":")[1].replace(";", "")), input.value);
-        });
-    });
-}
+        input.setAttribute("style", `width:40px;
+                height:30px;
+                margin-right:2px;
+                color:grey;
+                border:None;
+                `);
+                input.setAttribute("class", "input");
+                input.value = index;
+                box.appendChild(input);
+                box.appendChild(element.getElementsByClassName("info")[0]);
+                element.insertBefore(box, element.getElementsByClassName("content")[0]);
+                input.addEventListener("change", () => {
+                    let index = parseInt(element.getAttribute("style").split(":")[1].replace(";", ""));
+                    moveCourse(index, input.value);
+                });
+            });
+        }
 
 function currentOrdering() {
     let ordering = {};
@@ -61,7 +80,6 @@ function getCourseByOrder(index) {
     let courses = document.querySelector(".courses").getElementsByClassName("coursebox");
     for (let i=0; i < courses.length; i++) {
         if (courses[i].getAttribute("style") == `order:${index};`) {
-            console.log(courses[i]);
             return courses[i];
         }
     }
@@ -73,23 +91,28 @@ function moveCourse(currentIndex, afterIndex) {
     let swappedCourse = getCourseByOrder(afterIndex);
     activeCourse.setAttribute("style", `order:${afterIndex};`);
     swappedCourse.setAttribute("style", `order:${currentIndex};`);
+    swappedCourse.getElementsByClassName("input")[0].value = currentIndex;
+    saveOrdering();
 }
 
 function parseStyle(ordering={}) {
     let courses = document.querySelector(".courses");
-        courses.setAttribute("style", "display: flex; flex-direction:column");
+    courses.setAttribute("style", "display: flex; flex-direction:column");
+    let items = courses.getElementsByClassName("coursebox");
     if (Object.keys(ordering).length !== 0) {
         console.log("Parse with save");
-        courses.getElementsByClassName("coursebox").forEach(element => {
+        items.forEach(element => {
             let courseName = element.getElementsByClassName("info")[0].innerText;
             element.setAttribute("style", `${ordering[courseName]}`);
         });
     } else {
         console.log("Parse default");
-        courses.getElementsByClassName("coursebox").forEach(element => {
-            element.setAttribute("style", 'order:0;');
-        });
+        for (let i=0; i<items.length; i++) {
+            items[i].setAttribute("style", `order:${i+1};`);
+        }
     }
+    let bottomButton = document.getElementsByClassName("paging paging-morelink")[0];
+    bottomButton.setAttribute("style", `order:${items.length+1};`);
 }
 
 function saveOrdering() {
