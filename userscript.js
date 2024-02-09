@@ -2,7 +2,7 @@
 // @name         Better Moodle
 // @namespace    http://tampermonkey.net/
 // @version      2024-02-07
-// @description  better stronger
+// @description  Better, Stronger
 // @author       ME
 // @match        https://moodle.umons.ac.be/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ac.be
@@ -14,23 +14,63 @@
     let ordering = getOrdering();
     parseStyle(ordering);
     addUi(ordering);
+    addStyleSheet();
+})();
+
+function addStyleSheet() {
     let stylesheet = document.createElement("style");
-    stylesheet.innerText = ``;
+    stylesheet.innerText = `
+    .input {
+        width: 40px;
+        height: 30px;
+        color: grey;
+        border: None;
+        text-align: right;
+        background-color:transparent;
+    }
+
+    .input::-webkit-outer-spin-button,
+    .input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .box {
+        display:flex;
+        justify-content:right;
+        position:relative;
+        top:-20px;
+        right: -5px;
+        height:0;
+    }
+
+    .courses {
+        display: flex;
+        flex-direction:column;
+    }
+    
+    .search {
+        color:red;
+        margin-bottom: 4px;;
+    }`;
     let head = document.getElementsByTagName("head")[0];
     head.appendChild(stylesheet);
-})();
+}
 
 function addUi() {
     let courses = document.querySelector(".courses");
     const div = document.getElementById("carousel-item-main");
+
     let save = document.createElement("button");
     save.textContent = "BetterMoodle Save Config";
     save.addEventListener("click", saveOrdering);
     save.setAttribute("class", "dropdown-item");
+
     let del = document.createElement("button");
     del.textContent = "BetterMoodle Delete Config";
     del.addEventListener("click", deleteOrdering);
     del.setAttribute("class", "dropdown-item");
+
     div.insertBefore(save, div.getElementsByClassName("dropdown-divider")[1]);
     div.insertBefore(del, div.getElementsByClassName("dropdown-divider")[1]);
 
@@ -38,25 +78,26 @@ function addUi() {
         let index = parseInt(element.getAttribute("style").split(":")[1].replace(";", ""));
         let input = document.createElement("input");
         let box = document.createElement("div");
-        box.setAttribute("style", "display:flex;")
+        box.setAttribute("class", "box")
         input.setAttribute("type", "number");
-        input.setAttribute("style", `width:40px;
-                height:30px;
-                margin-right:2px;
-                color:grey;
-                border:None;
-                `);
-                input.setAttribute("class", "input");
-                input.value = index;
-                box.appendChild(input);
-                box.appendChild(element.getElementsByClassName("info")[0]);
-                element.insertBefore(box, element.getElementsByClassName("content")[0]);
-                input.addEventListener("change", () => {
-                    let index = parseInt(element.getAttribute("style").split(":")[1].replace(";", ""));
-                    moveCourse(index, input.value);
-                });
-            });
-        }
+        input.setAttribute("class", "input");
+        input.value = index;
+        box.appendChild(input);
+        element.appendChild(box);
+        input.addEventListener("change", () => {
+            let index = parseInt(element.getAttribute("style").split(":")[1].replace(";", ""));
+            moveCourse(index, input.value);
+        });
+    });
+
+    let list = document.getElementById("frontpage-course-list");
+    let search = document.createElement("input");
+    search.setAttribute("type", "text");
+    search.setAttribute("class", "search");
+    search.setAttribute("placeholder", "Recherhez un cours.");
+    search.addEventListener("input", () => {searchCourse(search.value)});
+    list.insertBefore(search, courses);
+}
 
 function currentOrdering() {
     let ordering = {};
@@ -97,7 +138,6 @@ function moveCourse(currentIndex, afterIndex) {
 
 function parseStyle(ordering={}) {
     let courses = document.querySelector(".courses");
-    courses.setAttribute("style", "display: flex; flex-direction:column");
     let items = courses.getElementsByClassName("coursebox");
     if (Object.keys(ordering).length !== 0) {
         console.log("Parse with save");
@@ -119,4 +159,8 @@ function saveOrdering() {
     let ordering = currentOrdering();
     window.localStorage.setItem("bettermoodleconfig", JSON.stringify(ordering));
     console.log("Saved config");
+}
+
+function searchCourse(courseName) {
+    console.log(courseName);
 }
