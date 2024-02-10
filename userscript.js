@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Better Moodle
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-07
+// @version      2024-02-10
 // @description  Better, Stronger
-// @author       ME
+// @author       AINDUSTRIES
 // @match        https://moodle.umons.ac.be/
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=ac.be
+// @icon         https://moodle.umons.ac.be/pluginfile.php/1/core_admin/favicon/64x64/1706617662/UMONS%20FavIcon%20Blanc%20sur%20rouge.png
 // @grant        none
 // ==/UserScript==
 
