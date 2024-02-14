@@ -70,12 +70,7 @@ function addStyleSheet() {
         margin-bottom: 4px;
         padding: 2px 2px 2px 2px;
     }`;
-<<<<<<< HEAD
   documtent.head.appendChild(stylesheet);
-=======
-  let head = document.getElementsByTagName("head")[0];
-  head.appendChild(stylesheet);
->>>>>>> b3a4d81096cccbcdda3cbbc2a279972d4ba9ffaf
 }
 
 function addUi() {
@@ -232,4 +227,3 @@ function searchCourse(courseName) {
     searched.setAttribute("class", "searchedempty");
   }
 }
-
