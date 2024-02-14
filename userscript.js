@@ -70,7 +70,7 @@ function addStyleSheet() {
         margin-bottom: 4px;
         padding: 2px 2px 2px 2px;
     }`;
-  documtent.head.appendChild(stylesheet);
+  document.head.appendChild(stylesheet);
 }
 
 function addUi() {
