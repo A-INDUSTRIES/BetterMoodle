@@ -8,6 +8,8 @@
 // @match        https://moodle.umons.ac.be/index.php
 // @icon         https://moodle.umons.ac.be/pluginfile.php/1/core_admin/favicon/64x64/1706617662/UMONS%20FavIcon%20Blanc%20sur%20rouge.png
 // @grant        none
+// @downloadURL https://raw.githubusercontent.com/A-INDUSTRIES/BetterMoodle/main/userscript.js
+// @updateURL https://raw.githubusercontent.com/A-INDUSTRIES/BetterMoodle/main/userscript.js
 // ==/UserScript==
 
 (function () {
