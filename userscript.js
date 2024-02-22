@@ -77,7 +77,7 @@ function addStyleSheet() {
     
     .searchedfound {
         border: solid 4px green;
-        border-radius: 5px;
+        border-radius: 10px;
         margin-bottom: 4px;
         padding: 2px 2px 2px 2px;
     }`;
