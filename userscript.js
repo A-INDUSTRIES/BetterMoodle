@@ -24,6 +24,15 @@
 function addStyleSheet() {
   let stylesheet = document.createElement("style");
   stylesheet.innerText = `
+    .navbar.fixed-top {
+        background: linear-gradient(90deg in hsl shorter hue, #a80039 10%, rgb(0,0,150)) !important;
+    }
+    .main-inner, .section {
+        border-radius: 10px !important;
+    }
+    .coursebox, .tile, .sectionbutton, .tiles-top-button {
+        border-radius: 5px !important;
+    }
     .input {
         width: 40px;
         height: 30px;
