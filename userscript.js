@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Better Moodle
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-10
+// @version      2024-02-22
 // @description  Better, Stronger
 // @author       AINDUSTRIES
 // @match        https://moodle.umons.ac.be/
