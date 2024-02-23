@@ -4,8 +4,7 @@
 // @version      2024-02-22
 // @description  Better, Stronger
 // @author       AINDUSTRIES
-// @match        https://moodle.umons.ac.be/
-// @match        https://moodle.umons.ac.be/index.php
+// @match        https://moodle.umons.ac.be/*
 // @icon         https://moodle.umons.ac.be/pluginfile.php/1/core_admin/favicon/64x64/1706617662/UMONS%20FavIcon%20Blanc%20sur%20rouge.png
 // @grant        none
 // @downloadURL https://raw.githubusercontent.com/A-INDUSTRIES/BetterMoodle/main/userscript.js
