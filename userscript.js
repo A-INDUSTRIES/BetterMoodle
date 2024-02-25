@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Better Moodle
 // @namespace    http://tampermonkey.net/
-// @version      2024-02-22
+// @version      2024-02-25
 // @description  Better, Stronger
 // @author       AINDUSTRIES
 // @match        https://moodle.umons.ac.be/*
@@ -18,13 +18,15 @@
   parseStyle(ordering);
   addUi(ordering);
   addStyleSheet();
+  animate();
 })();
 
 function addStyleSheet() {
   let stylesheet = document.createElement("style");
   stylesheet.innerText = `
     .navbar.fixed-top {
-        background: linear-gradient(90deg in hsl shorter hue, #a80039 10%, rgb(0,0,150)) !important;
+        background: linear-gradient(90deg in hsl shorter hue, #a80039 20%, rgb(0,0,150) 100%) !important;
+        background-size: 500% 100% !important;
     }
     .main-inner, .section {
         border-radius: 10px !important;
@@ -135,6 +137,21 @@ function addUi() {
     searched.setAttribute("id", "searched");
     list.insertBefore(searched, courses);
   }
+}
+
+function animate() {
+  let banner = document.getElementsByClassName("navbar")[0];
+  let x = 0;
+  let d = 10;
+  setInterval(() => {
+    if (x == 100) {
+      d = -2;
+    } else if (x == 0) {
+      d = 2;
+    }
+    banner.style.setProperty("background-position", `${x}% 50%`, "important");
+    x += d;
+  }, 100);
 }
 
 function currentOrdering() {
