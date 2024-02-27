@@ -49,7 +49,7 @@ function addStyleSheet() {
         margin: 0;
     }
 
-    .box {
+    .betterbox {
         display:flex;
         justify-content:right;
         position:relative;
@@ -109,7 +109,7 @@ function addUi() {
       );
       let input = document.createElement("input");
       let box = document.createElement("div");
-      box.setAttribute("class", "box");
+      box.setAttribute("class", "betterbox");
       input.setAttribute("type", "number");
       input.setAttribute("class", "input");
       input.value = index;
