@@ -52,20 +52,20 @@
         display: flex;
         flex-direction:column;
     }
-    
+
     .search {
         color:black;
         margin-bottom: 4px;
         border: solid 1px black;
         border-radius: 3px;
     }
-    
+
     .searchedempty {
         border: None;
         margin-bottom:0px;
         padding: 0px 0px 0px 0px;
     }
-    
+
     .searchedfound {
         border: solid 4px green;
         border-radius: 10px;
@@ -77,7 +77,7 @@
     let ordering = getOrdering();
     parseStyle(ordering);
     addUi(ordering);
-    addStyleSheet(stylesheet);
+    addStyleSheet(styleSheet);
 })();
 
 function addStyleSheet(styleSheet) {
@@ -101,14 +101,14 @@ function addUi() {
 
     let menuElementDivider = topRightMenu.getElementsByClassName("dropdown-divider")[1];
 
-    div.insertBefore(saveConfigButton, menuElementDivider);
-    div.insertBefore(deleteConfigButton, menuElementDivider);
+    topRightMenu.insertBefore(saveConfigButton, menuElementDivider);
+    topRightMenu.insertBefore(deleteConfigButton, menuElementDivider);
 
     let courseOuterBox = document.querySelector(".courses");
 
     if (courseOuterBox !== null) {
         courseOuterBox.getElementsByClassName("coursebox")
-        .forEach((element) => {
+        .forEach((course) => {
             let index = parseInt(
                 course.style.order,
             );
@@ -119,7 +119,7 @@ function addUi() {
             courseNumberInput.className = "input";
             courseNumberInput.value = index;
             inputContainer.appendChild(courseNumberInput);
-            course.appendChild(box);
+            course.appendChild(inputContainer);
             courseNumberInput.addEventListener("change", () => {
                 let index = parseInt(course.order);
                 moveCourse(index, courseNumberInput.value);
@@ -148,7 +148,7 @@ function animate() {
                 let banner = document.getElementsByClassName("navbar")[0];
                 watcher(banner)}, 100);
         } else {
-            setInterval(() => {_animate(elem)}, 500);
+            setInterval(() => {_animate(elem)}, 100);
         }
     }
     watcher(banner);
