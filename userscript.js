@@ -90,19 +90,19 @@ function addUi() {
     const topRightMenu = document.getElementById("carousel-item-main");
 
     let saveConfigButton = document.createElement("button");
-    save.textContent = "BetterMoodle Save Config";
-    save.addEventListener("click", saveOrdering);
-    saev.className = "dropdown-item";
+    saveConfigButton.textContent = "BetterMoodle Save Config";
+    saveConfigButton.addEventListener("click", saveOrdering);
+    saveConfigButton.className = "dropdown-item";
 
     let deleteConfigButton = document.createElement("button");
-    del.textContent = "BetterMoodle Delete Config";
-    del.addEventListener("click", deleteOrdering);
-    del.className = "dropdown-item";
+    deleteConfigButton.textContent = "BetterMoodle Delete Config";
+    deleteConfigButton.addEventListener("click", deleteOrdering);
+    deleteConfigButton.className = "dropdown-item";
 
     let menuElementDivider = topRightMenu.getElementsByClassName("dropdown-divider")[1];
 
-    div.insertBefore(save, menuElementDivider);
-    div.insertBefore(del, menuElementDivider);
+    div.insertBefore(saveConfigButton, menuElementDivider);
+    div.insertBefore(deleteConfigButton, menuElementDivider);
 
     let courseOuterBox = document.querySelector(".courses");
 
@@ -144,9 +144,11 @@ function animate() {
     let banner = document.getElementsByClassName("navbar")[0];
     let watcher = function(elem) {
         if (elem === null) {
-            setTimeout(watcher, 100);
+            setTimeout(() => {
+                let banner = document.getElementsByClassName("navbar")[0];
+                watcher(banner)}, 100);
         } else {
-            setInterval((elem) => {_animate(elem)}, 500);
+            setInterval(() => {_animate(elem)}, 500);
         }
     }
     watcher(banner);
